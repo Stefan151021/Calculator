@@ -77,7 +77,6 @@ equals.addEventListener("click",() => {
 
 cislo.forEach(c => {
     c.addEventListener("click", function (){
-
         if (!newCalculation){
             numberOne = ""
             newCalculation = true
@@ -108,13 +107,13 @@ operacie.forEach(operacia => {
             return
         }
 
-        operator = this.value
-        text.textContent = displayTextOnDisplay()
-
-        /*2+2+2 kalkulacie*/
+        // Reťazenie výpočtov: 2+2+2
         if (numberTwo !== ""){
             operate()
             numberTwo = ""
         }
+
+        operator = this.value
+        text.textContent = displayTextOnDisplay()
     })
 })
