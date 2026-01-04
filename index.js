@@ -100,6 +100,14 @@ cislo.forEach(c => {
 
 operacie.forEach(operacia => {
     operacia.addEventListener("click", function (){
+
+        if (!newCalculation) {
+            operator = this.value
+            newCalculation = true
+            text.textContent = displayTextOnDisplay()
+            return
+        }
+
         operator = this.value
         text.textContent = displayTextOnDisplay()
 
