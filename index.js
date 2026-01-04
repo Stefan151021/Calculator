@@ -3,7 +3,6 @@ const cislo= document.querySelectorAll(".cislo")
 const operacie = document.querySelectorAll(".operacie")
 const ac =document.querySelector(".ac")
 
-
 let   text = document.getElementById("text")
 let   numberOne   = ""
 let   operator    = ""
@@ -11,8 +10,7 @@ let   numberTwo   = ""
 let   newCalculation = true
 
 function displayTextOnDisplay() {
-   return text.textContent = numberOne.toString() + operator.toString() + numberTwo.toString()
-
+    return text.textContent = numberOne.toString() + operator.toString() + numberTwo.toString()
 }
 
 function operate() {
@@ -28,22 +26,21 @@ function operate() {
 }
 
 function add(a,b) {
-    let calcualtion =Number(a)+Number(b)
-    numberOne = calcualtion
+    let calcualtion = Number(a) + Number(b)
+    numberOne = Math.round(calcualtion * 1000000) / 1000000
     text.textContent = numberOne
 }
 
 function subtract(a,b) {
-   let calcualtion =Number(a)-Number(b)
-    numberOne = calcualtion
-    text.textContent = calcualtion
-
+    let calcualtion = Number(a) - Number(b)
+    numberOne = Math.round(calcualtion * 1000000) / 1000000
+    text.textContent = numberOne
 }
 
 function multiply(a,b) {
-    let calcualtion =Number(a) * Number(b)
-    text.textContent = calcualtion
-    numberOne = calcualtion
+    let calcualtion = Number(a) * Number(b)
+    numberOne = Math.round(calcualtion * 1000000) / 1000000
+    text.textContent = numberOne
 }
 
 function divide(a,b) {
@@ -52,11 +49,11 @@ function divide(a,b) {
         numberTwo = ""
         numberOne = ""
         operator = ""
-        return
+        return null
     }
     let calcualtion = Number(a) / Number(b)
-    text.textContent = calcualtion
-    numberOne = calcualtion
+    numberOne = Math.round(calcualtion * 1000000) / 1000000
+    text.textContent = numberOne
 }
 
 ac.addEventListener("click", () => {
@@ -66,8 +63,8 @@ ac.addEventListener("click", () => {
     newCalculation = true
     text.textContent = "0"
 })
-equals.addEventListener("click",() => {
 
+equals.addEventListener("click",() => {
     if (newCalculation){
         if (numberOne && numberTwo && operator){
             operate()
@@ -76,29 +73,31 @@ equals.addEventListener("click",() => {
         }
         newCalculation = false
     }
-
-
-
-
-
-
 })
+
 cislo.forEach(c => {
     c.addEventListener("click", function (){
+
         if (!newCalculation){
             numberOne = ""
             newCalculation = true
         }
         if (operator ===""){
+            if (this.value === "." && numberOne.includes(".")){
+                return
+            }
             numberOne += this.value
             text.textContent = displayTextOnDisplay()
-
         } else {
+            if (this.value === "." && numberTwo.includes(".")){
+                return
+            }
             numberTwo += this.value
             text.textContent = displayTextOnDisplay()
         }
     })
 })
+
 operacie.forEach(operacia => {
     operacia.addEventListener("click", function (){
         operator = this.value
@@ -109,7 +108,5 @@ operacie.forEach(operacia => {
             operate()
             numberTwo = ""
         }
-
-
     })
 })
